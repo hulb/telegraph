@@ -3,8 +3,8 @@ package telegraph_test
 import (
 	"testing"
 
+	"github.com/hulb/telegraph"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/toby3d/telegraph"
 )
 
 func TestEditAccountInfo(t *testing.T) {

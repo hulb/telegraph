@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/hulb/telegraph"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/toby3d/telegraph"
 )
 
 func TestGetViews(t *testing.T) {
