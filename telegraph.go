@@ -3,9 +3,11 @@ package telegraph
 import (
 	"encoding/json"
 	"errors"
+	"time"
 
 	jsoniter "github.com/json-iterator/go"
 	http "github.com/valyala/fasthttp"
+	"github.com/valyala/fasthttp/fasthttpproxy"
 )
 
 // Response contains a JSON object, which always has a Boolean field ok. If ok equals true, the request was
@@ -42,7 +44,7 @@ func makeRequest(path string, payload interface{}) ([]byte, error) {
 	resp := http.AcquireResponse()
 	defer http.ReleaseResponse(resp)
 
-	if err := http.Do(req, resp); err != nil {
+	if err := client.Do(req, resp); err != nil {
 		return nil, err
 	}
 
@@ -56,4 +58,12 @@ func makeRequest(path string, payload interface{}) ([]byte, error) {
 	}
 
 	return r.Result, nil
+}
+
+var client *http.Client
+
+func init() {
+	client = &http.Client{
+		Dial: fasthttpproxy.FasthttpProxyHTTPDialerTimeout(5 * time.Second),
+	}
 }
